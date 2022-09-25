@@ -19,7 +19,26 @@ class CounterFragment : Fragment() {
         binding.tvScreenNumber.text = getString(R.string.screen_label, getCounterValue() )
 
         binding.tvQuote.text = getQuote()
+
+        binding.btnNext.setOnClickListener { onNextPressed() }
+        binding.btnBack.setOnClickListener { onBackPressed() }
         return binding.root
+    }
+
+    private fun onBackPressed() {
+        requireActivity().onBackPressedDispatcher.onBackPressed()
+    }
+
+    private fun onNextPressed() {
+        val fragment = CounterFragment.newInstance(
+            counterValue = (requireActivity() as MainActivity).getScreensCount() + 1,
+            quote = (requireActivity() as MainActivity).createQuote()
+        )
+        parentFragmentManager
+            .beginTransaction()
+            .addToBackStack(null)
+            .replace(R.id.fragmentContainer, fragment)
+            .commit()
     }
 
     private fun goBack() {

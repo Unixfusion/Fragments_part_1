@@ -29,7 +29,11 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
-    private fun createQuote(): String {
+    fun createQuote(): String {
         return faker.shakespeare().hamletQuote()
+    }
+
+    fun getScreensCount(): Int {
+        return supportFragmentManager.backStackEntryCount + 1
     }
 }
